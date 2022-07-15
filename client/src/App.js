@@ -4,7 +4,7 @@ import AceEditor from "react-ace"; //importing ace editor to display the code in
 import { jsPDF } from "jspdf"; //importing jsPDF to generate the pdf file
 import copy from "./copy.png"; //importing copy.png to display the copy icon   (copy.png is the image file)
 import pdf from "./pdf.png"; //importing pdf.png to display the pdf icon   (pdf.png is the image file)
-import moment from "moment"; //importing moment to format the date and time
+// import moment from "moment"; //importing moment to format the date and time
 import { useToast } from "@chakra-ui/react"; //importing useToast to display the toast message
 // import alanBtn from "@alan-ai/alan-sdk-web"; //importing alanBtn to display the alan button
 
@@ -17,8 +17,9 @@ function App() {
   const [name, setName] = useState("default-code"); //creating a state called name and setting it to default-code
   const [status, setStatus] = useState(""); //creating a state called status and setting it to an empty string
   const [jobId, setJobId] = useState(""); //creating a state called jobId and setting it to an empty string
+  //eslint-disable-next-line
   const [jobDetails, setJobDetails] = useState(null); //creating a state called jobDetails and setting it to null
-  const [executionToast, setExecutionToast] = useState(false); //creating a state called executionToast and setting it to false
+  // const [executionToast, setExecutionToast] = useState(false); //creating a state called executionToast and setting it to false
   useEffect(() => {
     const defaultLang = localStorage.getItem("default-language") || "cpp";
     setLanguage(defaultLang);
@@ -68,11 +69,12 @@ function App() {
           const { status: jobStatus, output: jobOutput } = job;
           // console.log(jobStatus);
           setStatus(jobStatus);
+          //eslint-disable-next-line
           setJobDetails(job);
           if (jobStatus === "pending") return;
           setOutput(jobOutput);
           clearInterval(intervalId);
-          setExecutionToast(true);
+          // setExecutionToast(true);
         } else {
           setStatus("ERROR");
           // console.log(error);
@@ -89,28 +91,28 @@ function App() {
 
   //SOMETHING WENT WRONG RENDERTIMEDETAILS
 
-  const renderTimeDetails = () => {
-    // console.log(`JOB DETAILS : ${jobDetails}`);
-    if (!jobDetails) {
-      return "";
-    }
-    let result = "";
+  // const renderTimeDetails = () => {
+  // console.log(`JOB DETAILS : ${jobDetails}`);
+  // if (!jobDetails) {
+  //   return "";
+  // }
+  // let result = "";
 
-    let { submittedAt, completedAt, startedAt } = jobDetails;
-    // submittedAt = moment(submittedAt).toString();
-    // result += `Submitted At :  ${submittedAt}`;
+  // let { submittedAt, completedAt, startedAt } = jobDetails;
+  // submittedAt = moment(submittedAt).toString();
+  // result += `Submitted At :  ${submittedAt}`;
 
-    // if (!completedAt || !startedAt) {
-    //   return result;
-    // }
+  // if (!completedAt || !startedAt) {
+  //   return result;
+  // }
 
-    const start = moment(startedAt);
-    const end = moment(completedAt);
-    const executionTime = end.diff(start, "seconds", true);
-    result += `Execution Time : ${executionTime}`;
+  //   const start = moment(startedAt);
+  //   const end = moment(completedAt);
+  //   const executionTime = end.diff(start, "seconds", true);
+  //   result += `Execution Time : ${executionTime}`;
 
-    return result;
-  };
+  //   return result;
+  // };
 
   // useEffect(() => {
   //     setCode(stubs[language]);
