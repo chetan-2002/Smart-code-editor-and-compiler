@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Poppins&display=swap');
+
+.ubuntu {
+    font-family: 'Kanit', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+}
+
+.terminal {
+    font-family: 'Kanit', sans-serif;
+    font-family: 'Poppins', sans-serif;
+}
