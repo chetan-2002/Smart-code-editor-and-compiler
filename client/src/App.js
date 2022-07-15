@@ -7,7 +7,6 @@ import pdf from "./pdf.png"; //importing pdf.png to display the pdf icon   (pdf.
 import moment from "moment"; //importing moment to format the date and time
 import { useToast } from "@chakra-ui/react"; //importing useToast to display the toast message
 // import alanBtn from "@alan-ai/alan-sdk-web"; //importing alanBtn to display the alan button
-// import stubs from "./defaultStubs";
 
 function App() {
   const toast = useToast(); //using useToast to display the toast message
