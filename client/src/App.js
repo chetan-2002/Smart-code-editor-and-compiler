@@ -7,8 +7,9 @@ import pdf from "./pdf.png"; //importing pdf.png to display the pdf icon   (pdf.
 // import moment from "moment"; //importing moment to format the date and time
 import { useToast } from "@chakra-ui/react"; //importing useToast to display the toast message
 // import alanBtn from "@alan-ai/alan-sdk-web"; //importing alanBtn to display the alan button
-import "ace-builds/src-noconflict/theme-github";
-
+import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/mode-java";
+import "ace-builds/src-noconflict/mode-python";
 function App() {
   const toast = useToast(); //using useToast to display the toast message
   //creating a function called App which will be called in the index.js file
@@ -22,6 +23,7 @@ function App() {
   //eslint-disable-next-line
   // const [jobDetails, setJobDetails] = useState(null); //creating a state called jobDetails and setting it to null
   // const [executionToast, setExecutionToast] = useState(false); //creating a state called executionToast and setting it to false
+
   useEffect(() => {
     const defaultLang = localStorage.getItem("default-language") || "cpp";
     setLanguage(defaultLang);
@@ -230,6 +232,7 @@ function App() {
             mode="javascript"
             theme="github"
             value={code}
+            name="editor"
             height="75vh"
             placeholder="CODE"
             width="60%"
@@ -298,12 +301,9 @@ function App() {
         <AceEditor
           className="max-h-96 max-w-full md:min-w-full md:max-h-36 md:border-2 md:border-gray-700 md:rounded-lg md:shadow-md md:border-2 md:border-gray-700 md:rounded-lg md:shadow-md mb-3 md:mr-4"
           placeholder="Input Parameters"
-          mode="python"
-          theme="monokai"
+          theme="github"
           name="input_editor"
-          // onLoad={onLoad}
           onChange={(e) => {
-            console.log(e);
             setInput(e);
           }}
           fontSize={16}
@@ -311,7 +311,7 @@ function App() {
           showPrintMargin={true}
           showGutter={true}
           setOptions={{
-            enableBasicAutocompletion: false,
+            enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,
             enableSnippets: false,
             showLineNumbers: true,
