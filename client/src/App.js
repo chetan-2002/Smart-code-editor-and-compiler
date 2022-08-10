@@ -17,6 +17,7 @@ function App() {
   const [language, setLanguage] = useState("cpp"); //creating a state called language and setting it to cpp
   const [name, setName] = useState("default-code"); //creating a state called name and setting it to default-code
   const [status, setStatus] = useState(""); //creating a state called status and setting it to an empty string
+  const [input, setInput] = useState(""); //creating a state called input and setting it to an empty string
   // const [jobId, setJobId] = useState(""); //creating a state called jobId and setting it to an empty string
   //eslint-disable-next-line
   // const [jobDetails, setJobDetails] = useState(null); //creating a state called jobDetails and setting it to null
@@ -45,6 +46,7 @@ function App() {
     const payload = {
       language: language,
       code,
+      input,
     };
     try {
       const { data } = await axios.post(
@@ -292,7 +294,31 @@ function App() {
         </div>
         <br />
       </div>
-      {/* <div className="">{renderTimeDetails()}</div> */}
+      <div className="mb-8 md:ml-12 md:mr-12">
+        <AceEditor
+          className="max-h-96 max-w-full md:min-w-full md:max-h-36 md:border-2 md:border-gray-700 md:rounded-lg md:shadow-md md:border-2 md:border-gray-700 md:rounded-lg md:shadow-md mb-3 md:mr-4"
+          placeholder="Input Parameters"
+          mode="python"
+          theme="monokai"
+          name="input_editor"
+          // onLoad={onLoad}
+          onChange={(e) => {
+            console.log(e);
+            setInput(e);
+          }}
+          fontSize={16}
+          value={input}
+          showPrintMargin={true}
+          showGutter={true}
+          setOptions={{
+            enableBasicAutocompletion: false,
+            enableLiveAutocompletion: true,
+            enableSnippets: false,
+            showLineNumbers: true,
+            tabSize: 2,
+          }}
+        />
+      </div>
     </div>
   );
 }
