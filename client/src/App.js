@@ -7,6 +7,7 @@ import pdf from "./pdf.png"; //importing pdf.png to display the pdf icon   (pdf.
 // import moment from "moment"; //importing moment to format the date and time
 import { useToast } from "@chakra-ui/react"; //importing useToast to display the toast message
 // import alanBtn from "@alan-ai/alan-sdk-web"; //importing alanBtn to display the alan button
+import "ace-builds/src-noconflict/theme-github";
 
 function App() {
   const toast = useToast(); //using useToast to display the toast message
@@ -16,9 +17,9 @@ function App() {
   const [language, setLanguage] = useState("cpp"); //creating a state called language and setting it to cpp
   const [name, setName] = useState("default-code"); //creating a state called name and setting it to default-code
   const [status, setStatus] = useState(""); //creating a state called status and setting it to an empty string
-  const [jobId, setJobId] = useState(""); //creating a state called jobId and setting it to an empty string
+  // const [jobId, setJobId] = useState(""); //creating a state called jobId and setting it to an empty string
   //eslint-disable-next-line
-  const [jobDetails, setJobDetails] = useState(null); //creating a state called jobDetails and setting it to null
+  // const [jobDetails, setJobDetails] = useState(null); //creating a state called jobDetails and setting it to null
   // const [executionToast, setExecutionToast] = useState(false); //creating a state called executionToast and setting it to false
   useEffect(() => {
     const defaultLang = localStorage.getItem("default-language") || "cpp";
@@ -41,83 +42,39 @@ function App() {
   };
 
   const handleSubmit = async () => {
-    // console.log(code);
     const payload = {
       language: language,
       code,
     };
     try {
-      const { data } = await axios.post("http://localhost:5000/run", payload);
-      // console.log(data);
-      setJobId(jobId);
-      setJobDetails(null);
-      setStatus("");
-      setOutput("");
+      const { data } = await axios.post(
+        "https://smartcodecompiler.herokuapp.com/run",
+        payload
+      );
+      if (data.output.memory === null) {
+        setStatus("error");
+      } else if (data.output.statusCode === 200) {
+        setStatus("Success");
+      }
+      setOutput(data.output.output);
+      let sts;
+      if (data.output.memory === null) {
+        sts = "error";
+      } else if (data.output.statusCode === 200) {
+        sts = "Success";
+      }
 
-      let intervalId;
-
-      intervalId = setInterval(async () => {
-        const { data: dataResult } = await axios.get(
-          "http://localhost:5000/status",
-          { params: { id: data.jobId } }
-        );
-
-        const { success, job, error } = dataResult;
-        // console.log(dataResult);
-
-        if (success) {
-          const { status: jobStatus, output: jobOutput } = job;
-          // console.log(jobStatus);
-          setStatus(jobStatus);
-          //eslint-disable-next-line
-          setJobDetails(job);
-          if (jobStatus === "pending") return;
-          setOutput(jobOutput);
-          clearInterval(intervalId);
-          // setExecutionToast(true);
-        } else {
-          setStatus("ERROR");
-          // console.log(error);
-          clearInterval(intervalId);
-          setOutput(error);
-        }
-
-        // console.log(dataResult);
-      }, 1000);
+      toast({
+        title: "Code Executed!",
+        description: `Memory: ${data.output.memory} KB | Time: ${data.output.cpuTime} ms`,
+        status: sts === "Success" ? "success" : "error",
+        isClosable: true,
+        position: "bottom",
+      });
     } catch (error) {
       console.log(error);
     }
   };
-
-  //SOMETHING WENT WRONG RENDERTIMEDETAILS
-
-  // const renderTimeDetails = () => {
-  // console.log(`JOB DETAILS : ${jobDetails}`);
-  // if (!jobDetails) {
-  //   return "";
-  // }
-  // let result = "";
-
-  // let { submittedAt, completedAt, startedAt } = jobDetails;
-  // submittedAt = moment(submittedAt).toString();
-  // result += `Submitted At :  ${submittedAt}`;
-
-  // if (!completedAt || !startedAt) {
-  //   return result;
-  // }
-
-  //   const start = moment(startedAt);
-  //   const end = moment(completedAt);
-  //   const executionTime = end.diff(start, "seconds", true);
-  //   result += `Execution Time : ${executionTime}`;
-
-  //   return result;
-  // };
-
-  // useEffect(() => {
-  //     setCode(stubs[language]);
-  //     console.log(stubs[language]);
-  // }, [language]);
 
   //   useEffect(() => {
   //     alanBtn({
@@ -153,8 +110,9 @@ function App() {
             >
               <option value="c">C</option>
               <option value="cpp">C++</option>
-              {/* <option value="py">Python</option>
-              <option value="js">Javascript</option> */}
+              {/* <option value="py">Python</option> */}
+              {/* <option value="js">Javascript</option> */}
+              <option value="java">Java</option>
             </select>
             &nbsp;&nbsp;
             <button
@@ -268,7 +226,7 @@ function App() {
           <AceEditor
             className="max-h-96 min-w-full md:min-w-0 md:max-h-full md:border-2 md:border-gray-700 md:rounded-lg md:shadow-md md:border-2 md:border-gray-700 md:rounded-lg md:shadow-md mb-3 md:mr-4"
             mode="javascript"
-            theme=""
+            theme="github"
             value={code}
             height="75vh"
             placeholder="CODE"
@@ -282,9 +240,9 @@ function App() {
             showGutter={true}
             highlightActiveLine={true}
             setOptions={{
-              enableBasicAutocompletion: true,
+              enableBasicAutocompletion: false,
               enableLiveAutocompletion: true,
-              enableSnippets: true,
+              enableSnippets: false,
               showLineNumbers: true,
               tabSize: 4,
             }}
