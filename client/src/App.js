@@ -297,7 +297,7 @@ function App() {
         </div>
         <br />
       </div>
-      <div className="mb-8 md:ml-12 md:mr-12">
+      <div className="mb-8 md:ml-6 md:mr-6">
         <AceEditor
           className="max-h-96 max-w-full md:min-w-full md:max-h-36 md:border-2 md:border-gray-700 md:rounded-lg md:shadow-md md:border-2 md:border-gray-700 md:rounded-lg md:shadow-md mb-3 md:mr-4"
           placeholder="Input Parameters"
