@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+<!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -67,4 +67,74 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->
+
+# Smart Code Editor and Compiler
+
+This is a web-based code editor and compiler built using the MERN stack. It allows users to write, compile, and run code directly in their browser. The backend is powered by an API that handles code compilation and execution.
+
+## Table of Contents
+
+- [Features](#features)
+- [Technologies](#technologies)
+- [Setup](#setup)
+- [Usage](#usage)
+- [Snapshots](#snapshots)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- User can edit, compile and execute the code
+- User can download the code
+- User can copy the code to the clipboard
+- Rightnow it supports three languages :
+  - C
+  - C++
+  - Java
+
+## Technologies
+
+- React
+
+## Setup
+
+To run this code editor and compiler locally, follow these steps:
+
+1. Clone this repository:
+
+```
+git clone https://github.com/chetan-2002/Smart-code-editor-and-compiler.git
+```
+
+2. Change into the directory:
+
+```
+cd client
+```
+
+3. Install the dependencies:
+
+```
+npm install
+```
+
+4. Start the development server:
+
+```
+npm run dev
+```
+
+## Usage
+
+Once the development server is running, you can access the code editor and compiler by visiting `http://localhost:3000` in your browser.
+
+## Snapshots
+
+## Contributing
+
+Contributions are welcome! If you have any suggestions or bug reports, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
